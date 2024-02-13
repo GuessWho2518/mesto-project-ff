@@ -3,7 +3,9 @@ const cardsListTemplate = document.querySelector("#card-template").content;
 
 // Функция создания карточки
 function createCard(data, callbackDelete) {
-  const cardElement = cardsListTemplate.cloneNode(true); //клонировать шаблон
+  const cardElement = cardsListTemplate
+    .querySelector(".places__item")
+    .cloneNode(true); //клонировать шаблон
 
   cardElement.querySelector(".card__title").textContent = data.name; //установить значения вложенных элементов
   cardElement.querySelector(".card__image").src = data.link; //установить значения вложенных элементов
