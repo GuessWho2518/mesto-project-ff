@@ -1,3 +1,7 @@
+import "../pages/index.css"; // добавьте импорт главного файла стилей
+import { initialCards } from "./cards.js";
+import { modalFunction } from "./modal.js";
+
 const placesList = document.querySelector(".places__list");
 const cardsListTemplate = document.querySelector("#card-template").content;
 
