@@ -23,20 +23,22 @@ popups.forEach(function (popup) {
 });
 
 // Форма редактирования профиля
-const editProfileForm = document.forms['edit-profile'];
-const nameProfileInput = editProfileForm.querySelector('.popup__input_type_name');
-nameProfileInput.value = document.querySelector('.profile__title').textContent;
-const descriptionProfileInput = editProfileForm.querySelector('.popup__input_type_description');
-descriptionProfileInput.value = document.querySelector('.profile__description').textContent;
+const formEditProfile = document.forms['edit-profile'];
+const profileTitle = document.querySelector('.profile__title');
+const nameProfileInput = formEditProfile.querySelector('.popup__input_type_name');
+const profileDescription = document.querySelector('.profile__description');
+nameProfileInput.value = profileTitle.textContent;
+const inputDescriptionProfile = formEditProfile.querySelector('.popup__input_type_description');
+inputDescriptionProfile.value = profileDescription.textContent;
 
 function editProfileByForm(event) {
   event.preventDefault();
-  document.querySelector('.profile__title').textContent = nameProfileInput.value;
-  document.querySelector('.profile__description').textContent = descriptionProfileInput.value;
+  profileTitle.textContent = nameProfileInput.value;
+  profileDescription.textContent = inputDescriptionProfile.value;
   closeModal(modalEditProfile);
 }
 
-editProfileForm.addEventListener('submit', editProfileByForm);
+formEditProfile.addEventListener('submit', editProfileByForm);
 
 // модалка добавления карточки
 const modalAddCard = document.querySelector(".popup_type_new-card");
@@ -47,33 +49,36 @@ buttonAddCard.addEventListener("click", () => {
 })
 
 // Форма добавления карточки
-const addCardForm = document.forms['new-place'];
-const nameCardInput = addCardForm.querySelector('.popup__input_type_card-name');
-const linkCardInput = addCardForm.querySelector('.popup__input_type_url');
+const formAddCard = document.forms['new-place'];
+const inputNameCard = formAddCard.querySelector('.popup__input_type_card-name');
+const inputLinkCard = formAddCard.querySelector('.popup__input_type_url');
 
 function addCardByForm(event) {
   event.preventDefault();
   const newCard = createCard(
     {
-      name: nameCardInput.value,
-      link: linkCardInput.value
+      name: inputNameCard.value,
+      link: inputLinkCard.value
     },
     deleteCard,
     likeCard,
     modalImageclick
   );
   cardsContainer.prepend(newCard);
-  addCardForm.reset();
+  formAddCard.reset();
   closeModal(modalAddCard);
 }
 
-addCardForm.addEventListener('submit', addCardByForm);
+formAddCard.addEventListener('submit', addCardByForm);
+
 const popupImageType = document.querySelector(".popup_type_image");
+const popupCaption = document.querySelector(".popup__caption");
+const popupImage = document.querySelector(".popup__image");
 
 function modalImageclick(data) {
-  popupImageType.querySelector('.popup__caption').textContent = data.name;
-  popupImageType.querySelector('.popup__image').src = data.link;
-  popupImageType.querySelector('.popup__image').alt = data.name;
+  popupCaption.textContent = data.name;
+  popupImage.src = data.link;
+  popupImage.alt = data.name;
   openModal(popupImageType);
 }
 
