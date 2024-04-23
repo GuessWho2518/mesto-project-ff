@@ -17,3 +17,4 @@ export const inputLinkCard = formAddCard.querySelector('.popup__input_type_url')
 export const popupImageType = document.querySelector(".popup_type_image");
 export const popupCaption = document.querySelector(".popup__caption");
 export const popupImage = document.querySelector(".popup__image");
+export const profileAvatar = document.querySelector('.profile__image')

@@ -19,9 +19,13 @@ import {
   inputLinkCard,
   popupImageType,
   popupCaption,
-  popupImage
+  popupImage,
+  profileAvatar,
 } from "./variables.js";
-import { fetcher } from "./api.js";
+import {
+  getInitialCard,
+  getUserInfo
+} from "./api.js";
 
 buttonEditProfile.addEventListener("click", () => {
   openModal(modalEditProfile);
@@ -52,8 +56,6 @@ buttonAddCard.addEventListener("click", () => {
   openModal(modalAddCard);
 })
 
-
-
 function addCardByForm(event) {
   event.preventDefault();
   const newCard = createCard(
@@ -79,9 +81,24 @@ function modalImageclick(data) {
   openModal(popupImageType);
 }
 
-initialCards.forEach(function (cardData) {
-  const card = createCard(cardData, deleteCard, likeCard, modalImageclick);
-  cardsContainer.append(card);
-});
+const initialRenderCards = (data) => {
+  data.forEach(function (cardData) {
+    const card = createCard(cardData, deleteCard, likeCard, modalImageclick);
+    cardsContainer.append(card);
+  })
+}
 
-fetcher()
+const renderProfileInfo = (data) => {
+  profileTitle.textContent = data.name
+  profileDescription.textContent = data.about
+  profileAvatar.style.backgroundImage = `url(${data.avatar})`
+
+
+}
+Promise.all([getInitialCard(), getUserInfo()])
+  .then(results => {
+    const cardsData = results[0];
+    const autorData = results[1];
+    renderProfileInfo(autorData)
+    initialRenderCards(cardsData)
+  })
