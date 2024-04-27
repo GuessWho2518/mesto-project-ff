@@ -1,17 +1,17 @@
 const cardsListTemplate = document.querySelector("#card-template").content;
 
-export function deleteCard(cardElement) {
+export const deleteCard = (cardElement) => {
     cardElement.remove();
 }
 
-export function likeCard(likeeButton) {
+export const likeCard = (likeeButton) => {
     likeeButton.classList.toggle('card__like-button_is-active');
 }
 
-export function createCard(data, deleteCard, likeCard, imageClick) {
+export const createCard = (data, deleteCard, likeCard, imageClick) => {
     const cardElement = cardsListTemplate.querySelector(".places__item").cloneNode(true);
     const cardImage = cardElement.querySelector(".card__image");
-
+    cardElement.id = data._id
     cardImage.alt = data.name;
     cardImage.src = data.link;
     cardElement.querySelector(".card__title").textContent = data.name;;
