@@ -376,13 +376,11 @@ template {
   -moz-osx-font-smoothing: grayscale;
   display: flex;
   flex-direction: column;
-  /*Уже пора бы в можно лучше про стики-футер рассказать*/
 }
 
 .page__section {
   width: 100%;
   max-width: 882px;
-  /*Опционально. Тут можно принять проект и без ограничения максимальной ширины.*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -416,14 +414,10 @@ template {
 
 .header {
   min-height: 120px;
-  /*Если подгонять под ПЭПЭ, то тут min-height: 117px;*/
   font-family: 'Inter', Arial, sans-serif;
   display: flex;
   align-items: center;
-  /*border-bottom: 1px solid rgba(84, 84, 84, 0.7);*/
-  /*Перевести в RGBA, чтобы учесть opacity*/
   flex-shrink: 0;
-  /*Стики футер*/
 }
 
 .header::before {
@@ -439,10 +433,8 @@ template {
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  /*Центруем. Студенты знают про транслейт*/
   bottom: 0;
 }
-/*Лучшее решение здесь -- можно лучше*/
 
 @media screen and (max-width: 480px) {
   .header {
@@ -456,7 +448,6 @@ template {
 .content {
   flex-shrink: 0;
   flex-grow: 1;
-  /*Стики футер*/
 }
 
 .footer__copyright {
@@ -476,7 +467,6 @@ template {
 .footer {
   font-family: 'Inter', Arial, sans-serif;
   flex-shrink: 0;
-  /*Стики футер*/
   padding: 30px 0 60px;
 }
 
@@ -510,12 +500,11 @@ template {
 .profile__add-button {
   width: 150px;
   height: 50px;
-  background: transparent url(bed8c136e13907f5eefb.svg) center no-repeat;
+  background: transparent url(d86bb2edc2f6eadb96b7.svg) center no-repeat;
   background-size: 22px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  /*Че это*/
   border: 2px solid #fff;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
@@ -546,20 +535,17 @@ template {
 .profile__edit-button {
   width: 24px;
   height: 24px;
-  background: transparent url(6c7bf05444b9793fdf6e.svg) center no-repeat;
-  /*Шортхэнды пора бы знать, хотя бы в можно лучше*/
+  background: transparent url(8667ac4a523e8fc42e59.svg) center no-repeat;
   background-size: 10px 10px;
   border: 1px solid #fff;
   grid-area: button;
   align-self: center;
-  /*Можно марджином тут выровнять под ПЭПЭ, но тут оставил AS.*/
   cursor: pointer;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
-  /*Транзишн пора бы уже знать*/
   padding: 0;
   margin: 0;
 }
@@ -581,9 +567,7 @@ template {
   grid-template-areas: "title button"
   "description description";
   grid-template-columns: minmax(auto, 295px) auto;
-  /*Можно не гридить*/
   grid-gap: 9px 17px;
-  /*Подгон под ПЭПЭ, без него - 16px*/
 }
 
 @media screen and (max-width: 740px) {
@@ -612,12 +596,10 @@ template {
 .profile__title {
   font-size: 42px;
   line-height: 48px;
-  /*Подгон под ПЭПЭ - без него 56px*/
   font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  /*Либо с точками из макета, либо этот набор свойств для эллипсиса текста в можно лучше*/
   grid-area: title;
   margin: 0;
 }
@@ -633,31 +615,47 @@ template {
   .profile__title {
     font-size: 27px;
     line-height: 33px;
-    /*По макету 56px. Проявите лоялити к студенту*/
   }
 }
 
 @media screen and (max-width: 480px) {
   .profile__title {
     min-width: 201px;
-    /*
-      Это по макету. Вообще я считаю тут должен быть отступ до иконки, но фрейм у заголовка кривой.
-      Проявите лоялити к студенту
-    */
   }
 }
 
 .profile__image {
+  /* мои правки */
+  position: relative;
   width: 120px;
   height: 120px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
   background-size: cover;
-  /*Ковер тут симпатичнее контейна*/
   background-position: center;
   margin: 0 29px 0 0;
-  /*Макет очень кривоват, как считать этот отступ я хз. Проявите тут лояльность пока что*/
+}
+
+.profile__image::before {
+  content: '';
+  position: absolute;
+  top: 37.25%;
+  left: 37.25%;
+  width: 25%;
+  height: 25%;
+  transform: scale(400%);
+  border-radius: 50%;
+  background: rgba(0 0 0 / .8) url(8667ac4a523e8fc42e59.svg) center no-repeat;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.6s, opacity 0.6s;
+}
+
+.profile__image:hover::before {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.6s;
 }
 
 @media screen and (max-width: 740px) {
@@ -678,7 +676,6 @@ template {
   display: flex;
   align-items: center;
   padding: 36px 0;
-  /*Если подгонять под ПЭПЭ, то тут padding: 40px 0; Проявите лоялити*/
 }
 
 @media screen and (max-width: 480px) {
@@ -720,7 +717,6 @@ template {
   align-items: center;
   background: #fff;
   padding: 25px 20px;
-  /*Чтобы по ПЭПЭ отступы снизу-сверху одинаковые            */
 }
 
 .card__image {
@@ -736,8 +732,8 @@ template {
 .card__like-button {
   width: 21px;
   height: 18px;
-  background: transparent url(df0c965524717a3fd8e9.svg) no-repeat;
-  /*Потом это будет из модификатора*/
+  background: transparent url(49570bcb1d637fdb38e5.svg) no-repeat;
+  
   background-size: 21px 18px;
   border: none;
   cursor: pointer;
@@ -755,13 +751,13 @@ template {
 }
 
 .card__like-button_is-active {
-  background: transparent url(a7ffe37dcb927ba0c46c.svg) no-repeat;
+  background: transparent url(75438e944a43e4c0b404.svg) no-repeat;
 }
 
 .card__delete-button {
   width: 18px;
   height: 18px;
-  background: transparent url(2af49b82d305a6ea3442.svg) center no-repeat;
+  background: transparent url(a274c87c0f6b553b47ad.svg) center no-repeat;
   /*Потом это будет из модификатора*/
   background-size: 18px 18px;
   border: none;
@@ -793,6 +789,15 @@ template {
   margin: 0;
 }
 
+.card__like-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+.card__like-counter {
+    font-size: 13px;
+}
 .card {
   font-family: 'Inter', Arial, sans-serif;
   -webkit-border-radius: 10px;
@@ -805,7 +810,7 @@ template {
 .popup__content {
   max-width: 430px;
   width: 100%;
-  min-height: 330px;
+  /* min-height: 330px; */
   background-color: #fff;
   border-radius: 10px;
   position: relative;
@@ -840,10 +845,8 @@ template {
 .popup__close {
   width: 35px;
   height: 35px;
-  background: transparent url(8a65f75d3d836c291cc9.svg) center no-repeat;
-  /*Шортхэнды пора бы знать, хотя бы в можно лучше*/
+  background: transparent url(888d78eb885c525f5e00.svg) center no-repeat;
   background-size: 35px 35px;
-  /*Можно марджином тут выровнять под ПЭПЭ, но тут оставил AS.*/
   border: none;
   position: absolute;
   top: -36px;
@@ -854,7 +857,6 @@ template {
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
   transition: visibility 0s, opacity 0.3s;
-  /*Транзишн пора бы уже знать*/
   padding: 0;
   margin: 0;
   cursor: pointer;
@@ -881,21 +883,30 @@ template {
   margin-top: 27px;
 }
 
+.popup__input_type_normal {
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+.popup__input_type_error {
+    border-bottom: 1px solid rgba(255 0 0);
+}
 .popup__input {
   width: 100%;
   height: 47px;
-  border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  /* border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2); */
   font-size: 14px;
   line-height: 18px;
   box-sizing: border-box;
   padding: 10px 0 0;
-  margin-bottom: 10px;
+  /* мои изменения */
+  /* margin-bottom: 10px; */
+  margin-bottom: 5px;
 }
 
-.popup__input:last-of-type {
+/* .popup__input:last-of-type {
   margin-bottom: 0;
-}
+} */
 
 @media screen and (max-width: 568px) {
   .popup__title {
@@ -904,19 +915,33 @@ template {
   }
 }
 
+.popup__button_enabled {
+    color: white;
+    background: #000;
+    border: none;
+    transition: visibility 0s, background 0.3s;
+}
+.popup__button_disabled {
+    pointer-events: none;
+    color: rgba(0 0 0);
+    border: 1px solid rgba(0 0 0);
+    background-color: rgba(255 255 255);
+    opacity: 0.2;
+    transition: opacity 0.3s, background-color 0.3s;
+}
 .popup__button {
   width: 100%;
   height: 50px;
   font-size: 18px;
   line-height: 22px;
-  color: white;
+  /* color: white; */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000;
+  /* background: #000; */
   border-radius: 2px;
-  border: none;
-  transition: visibility 0s, background 0.3s;
+  /* border: none; */
+  /* transition: visibility 0s, background 0.3s; */
   margin-top: 48px;
 }
 
@@ -940,9 +965,6 @@ template {
   left: 0;
   top: calc(100% + 10px);
   margin: 0;
-  /*
-    позиционируем абсолютно. В задании сказано только про максимальные размеры изображения.
-  */
 }
 
 .popup__image {
@@ -952,9 +974,25 @@ template {
   display: block;
 }
 
+.popup__error_invisible {
+    visibility: hidden;
+    opacity: 0;
+    user-select: none;
+    transition: visibility 0s, opacity 0.6s;
+}
+.popup__error_visible {
+    visibility: visible;
+    opacity: 1;
+    user-select: text;
+    transition: visibility 0s, opacity 0.6s;
+}
+.popup__error {
+    font-size: 12px;
+    color: rgba(255 0 0);
+}
 .popup {
   font-family: 'Inter', Arial, sans-serif;
-  display: none;
+  /* display: none; */
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, .5);
@@ -968,24 +1006,23 @@ template {
 
 .popup_is-animated {
     display: flex;
-
-    /*Стили для плавного появления модалки*/
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
     user-select: none;
-
-    /* Delay visibility: hidden until the end of the opacity animation, but only on the fade-out direction */
-    transition: visibility 0s 0.6s, opacity 0.6s;
+    /* было изначально:
+    transition: visibility 0s 0.6s, opacity 0.6s; */
+    /* мои изменения */
+    transition: visibility 0.6s, opacity 0.6s;
 }
 .popup_is-opened {
   display: flex;
   visibility: visible;
   opacity: 1;
   pointer-events: all;
-  /* When opening, make the visibility change immediate with no delay */
   transition: visibility 0s, opacity 0.6s;
 }
 
-/*Импортируем на уровень выше*/
+
+
 
