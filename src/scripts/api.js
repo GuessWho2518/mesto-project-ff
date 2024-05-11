@@ -1,58 +1,110 @@
-/**
- * Токен: 806a3e23-dd82-4545-a496-6ff755848ded
- * Идентификатор группы: wff-cohort-12
- */
-const config = {
-    URL: "https://nomoreparties.co/v1/",
+const myDataApi = {
     cohort: "wff-cohort-12",
+    TOKEN: "806a3e23-dd82-4545-a496-6ff755848ded",
+    baseUrl: "https://mesto.nomoreparties.co/v1/"
+}
+const config = {
+    cardsUrl: `${myDataApi.baseUrl}${myDataApi.cohort}/cards`,
+    userUrl: `${myDataApi.baseUrl}${myDataApi.cohort}/users/me`,
     headers: {
-        authorization: "806a3e23-dd82-4545-a496-6ff755848ded",
+        authorization: `${myDataApi.TOKEN}`,
         "Content-Type": "application/json",
     },
+    patch: 'PATCH',
+    post: 'POST',
+    put: 'PUT',
+    delete: 'DELETE'
 };
 
-function checkResponse(res) {
-    if (res.ok) {
-        return res.json();
-    } else {
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-    }
+const handleResponse = (res) => {
+    return res.ok ? res.json() : Promise.reject(res.status);
 }
-// получение данных о пользователе
-export const getUserData = () => {
-    return fetch(`${config.URL}${config.cohort}/users/me`, {
-        headers: config.headers,
-    }).then(checkResponse);
-};
 
-// получение данных о карточках
 export const getCardsData = () => {
-    return fetch(`${config.URL}${config.cohort}/cards`, {
-        headers: config.headers,
-    }).then(checkResponse)
-}
-
-// обновление данных о пользователе
-export const updateProfileData = (data) => {
-    return fetch(`${config.URL}${config.cohort}/users/me`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: data.name,
-            about: data.about
+    return fetch(config.cardsUrl, {
+        headers: config.headers
+    })
+        .then(res => {
+            return handleResponse(res);
         })
-    }).then(checkResponse)
 }
 
-// обновление данных о карточках
-export const updateCardData = (data) => {
-    return fetch(`${config.URL}${config.cohort}/cards`, {
-        method: 'POST',
+export const createCardData = (name, url) => {
+    return fetch(config.cardsUrl, {
+        method: config.post,
         headers: config.headers,
         body: JSON.stringify({
-            name: data.name,
-            link: data.link
+            name: name,
+            link: url
         })
     })
-        .then(checkResponse)
+        .then(res => {
+            return handleResponse(res);
+        })
+}
+
+export const deleteCardData = (id) => {
+    return fetch(`${config.cardsUrl}/${id}`, {
+        method: config.delete,
+        headers: config.headers,
+    })
+        .then(res => {
+            return handleResponse(res);
+        });
+}
+
+export const addLike = (id) => {
+    return fetch(`${config.cardsUrl}/likes/${id}`, {
+        method: config.put,
+        headers: config.headers
+    })
+        .then(res => {
+            return handleResponse(res);
+        });
+}
+
+export const removeLike = (id) => {
+    return fetch(`${config.cardsUrl}/likes/${id}`, {
+        method: config.delete,
+        headers: config.headers
+    })
+        .then(res => {
+            return handleResponse(res);
+        });
+}
+
+export const getProfileData = () => {
+    return fetch(config.userUrl, {
+        headers: config.headers
+    })
+        .then(res => {
+            return handleResponse(res);
+        })
+}
+
+export const updateProfileData = (name, job) => {
+    return fetch(config.userUrl, {
+        method: config.patch,
+        headers: config.headers,
+        body: JSON.stringify({
+            name: name,
+            about: job
+        })
+    })
+        .then(res => {
+            return handleResponse(res);
+        })
+}
+
+export const updateAvatar = (url) => {
+    return fetch(`${config.userUrl}/avatar`, {
+        method: config.patch,
+        headers: config.headers,
+        body: JSON.stringify({
+            avatar: url
+        })
+    })
+        .then(res => {
+            return handleResponse(res);
+        });
 }
